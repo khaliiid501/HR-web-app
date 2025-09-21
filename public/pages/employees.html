@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الموظفين - نظام الموارد البشرية</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🏢 نظام إدارة الموارد البشرية</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="employees.html" class="active">إدارة الموظفين</a></li>
+                    <li><a href="payroll.html">الرواتب والمزايا</a></li>
+                    <li><a href="performance.html">تقييم الأداء</a></li>
+                    <li><a href="training.html">التدريب والتطوير</a></li>
+                    <li><a href="reports.html">التقارير والامتثال</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">👥 إدارة الموظفين</h2>
+                </div>
+
+                <!-- قسم إضافة موظف جديد -->
+                <div class="row">
+                    <div class="col">
+                        <h3>إضافة موظف جديد</h3>
+                        <form id="addEmployeeForm">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeeName">اسم الموظف</label>
+                                        <input type="text" id="employeeName" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeePosition">المنصب</label>
+                                        <input type="text" id="employeePosition" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeeDepartment">القسم</label>
+                                        <select id="employeeDepartment" class="form-control" required>
+                                            <option value="">اختر القسم</option>
+                                            <option value="الموارد البشرية">الموارد البشرية</option>
+                                            <option value="المحاسبة">المحاسبة</option>
+                                            <option value="تقنية المعلومات">تقنية المعلومات</option>
+                                            <option value="التسويق">التسويق</option>
+                                            <option value="المبيعات">المبيعات</option>
+                                            <option value="العمليات">العمليات</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeeSalary">الراتب الأساسي</label>
+                                        <input type="number" id="employeeSalary" class="form-control" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeeEmail">البريد الإلكتروني</label>
+                                        <input type="email" id="employeeEmail" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeePhone">رقم الهاتف</label>
+                                        <input type="tel" id="employeePhone" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeeHireDate">تاريخ التوظيف</label>
+                                        <input type="date" id="employeeHireDate" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <label for="employeeStatus">الحالة</label>
+                                        <select id="employeeStatus" class="form-control" required>
+                                            <option value="نشط">نشط</option>
+                                            <option value="معلق">معلق</option>
+                                            <option value="مستقيل">مستقيل</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">إضافة الموظف</button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm('addEmployeeForm')">إلغاء</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم البحث والفلترة -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🔍 البحث والفلترة</h3>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="searchEmployee">البحث</label>
+                            <input type="text" id="searchEmployee" class="form-control" placeholder="البحث بالاسم أو المنصب أو القسم">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="filterDepartment">فلترة بالقسم</label>
+                            <select id="filterDepartment" class="form-control">
+                                <option value="">جميع الأقسام</option>
+                                <option value="الموارد البشرية">الموارد البشرية</option>
+                                <option value="المحاسبة">المحاسبة</option>
+                                <option value="تقنية المعلومات">تقنية المعلومات</option>
+                                <option value="التسويق">التسويق</option>
+                                <option value="المبيعات">المبيعات</option>
+                                <option value="العمليات">العمليات</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-success" onclick="exportEmployees()">📊 تصدير Excel</button>
+                        <button class="btn btn-primary" onclick="refreshEmployeeList()">🔄 تحديث</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قائمة الموظفين -->
+            <div class="table-container">
+                <table class="table" id="employeesTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortEmployees('name')">الاسم ↕️</th>
+                            <th onclick="sortEmployees('position')">المنصب ↕️</th>
+                            <th onclick="sortEmployees('department')">القسم ↕️</th>
+                            <th onclick="sortEmployees('salary')">الراتب ↕️</th>
+                            <th onclick="sortEmployees('hireDate')">تاريخ التوظيف ↕️</th>
+                            <th onclick="sortEmployees('status')">الحالة ↕️</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeesTableBody">
+                        <!-- سيتم ملء البيانات بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- إحصائيات الموظفين -->
+            <div class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalEmployeesCount">0</div>
+                        <div class="stat-label">إجمالي الموظفين</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="activeEmployeesCount">0</div>
+                        <div class="stat-label">الموظفون النشطون</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="averageEmployeeSalary">0</div>
+                        <div class="stat-label">متوسط الراتب</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="departmentsCount">0</div>
+                        <div class="stat-label">عدد الأقسام</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 نظام إدارة الموارد البشرية. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- نافذة منبثقة لتعديل الموظف -->
+    <div id="editEmployeeModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h3>تعديل بيانات الموظف</h3>
+            <form id="editEmployeeForm">
+                <input type="hidden" id="editEmployeeId">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="editEmployeeName">اسم الموظف</label>
+                            <input type="text" id="editEmployeeName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="editEmployeePosition">المنصب</label>
+                            <input type="text" id="editEmployeePosition" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="editEmployeeDepartment">القسم</label>
+                            <select id="editEmployeeDepartment" class="form-control" required>
+                                <option value="الموارد البشرية">الموارد البشرية</option>
+                                <option value="المحاسبة">المحاسبة</option>
+                                <option value="تقنية المعلومات">تقنية المعلومات</option>
+                                <option value="التسويق">التسويق</option>
+                                <option value="المبيعات">المبيعات</option>
+                                <option value="العمليات">العمليات</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="editEmployeeSalary">الراتب الأساسي</label>
+                            <input type="number" id="editEmployeeSalary" class="form-control" min="0" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="editEmployeeStatus">الحالة</label>
+                            <select id="editEmployeeStatus" class="form-control" required>
+                                <option value="نشط">نشط</option>
+                                <option value="معلق">معلق</option>
+                                <option value="مستقيل">مستقيل</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                <button type="button" class="btn btn-secondary" onclick="closeEditModal()">إلغاء</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/employees.js"></script>
+</body>
+</html>

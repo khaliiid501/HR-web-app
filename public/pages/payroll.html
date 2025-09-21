@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الرواتب والمزايا - نظام الموارد البشرية</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🏢 نظام إدارة الموارد البشرية</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="employees.html">إدارة الموظفين</a></li>
+                    <li><a href="payroll.html" class="active">الرواتب والمزايا</a></li>
+                    <li><a href="performance.html">تقييم الأداء</a></li>
+                    <li><a href="training.html">التدريب والتطوير</a></li>
+                    <li><a href="reports.html">التقارير والامتثال</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- إحصائيات الرواتب -->
+            <div class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalPayrollThisMonth">0</div>
+                        <div class="stat-label">إجمالي الرواتب هذا الشهر</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="averageSalaryAmount">0</div>
+                        <div class="stat-label">متوسط الراتب</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalBonuses">0</div>
+                        <div class="stat-label">إجمالي المكافآت</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalDeductions">0</div>
+                        <div class="stat-label">إجمالي الخصومات</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إعداد كشف الراتب الشهري -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">💰 إعداد كشف الراتب الشهري</h2>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="payrollMonth">الشهر</label>
+                            <select id="payrollMonth" class="form-control">
+                                <option value="1">يناير</option>
+                                <option value="2">فبراير</option>
+                                <option value="3">مارس</option>
+                                <option value="4">أبريل</option>
+                                <option value="5">مايو</option>
+                                <option value="6">يونيو</option>
+                                <option value="7">يوليو</option>
+                                <option value="8">أغسطس</option>
+                                <option value="9">سبتمبر</option>
+                                <option value="10">أكتوبر</option>
+                                <option value="11">نوفمبر</option>
+                                <option value="12">ديسمبر</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="payrollYear">السنة</label>
+                            <input type="number" id="payrollYear" class="form-control" value="2024" min="2020" max="2030">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="btn btn-primary" onclick="generatePayroll()">🔄 إنشاء كشف الرواتب</button>
+                        <button class="btn btn-success" onclick="exportPayroll()">📊 تصدير كشف الرواتب</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- إدارة المكافآت والخصومات -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🎁 إدارة المكافآت والخصومات</h3>
+                </div>
+                <form id="bonusDeductionForm">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="employeeSelect">اختر الموظف</label>
+                                <select id="employeeSelect" class="form-control" required>
+                                    <option value="">اختر الموظف</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="adjustmentType">النوع</label>
+                                <select id="adjustmentType" class="form-control" required>
+                                    <option value="">اختر النوع</option>
+                                    <option value="bonus">مكافأة</option>
+                                    <option value="deduction">خصم</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="adjustmentAmount">المبلغ</label>
+                                <input type="number" id="adjustmentAmount" class="form-control" min="0" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label for="adjustmentReason">السبب</label>
+                                <input type="text" id="adjustmentReason" class="form-control" required placeholder="سبب المكافأة أو الخصم">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary">إضافة</button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm('bonusDeductionForm')">إلغاء</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- جدول كشف الرواتب -->
+            <div class="table-container">
+                <h3 style="padding: 1rem; margin: 0; background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                    📋 كشف الرواتب - <span id="currentPayrollPeriod">الشهر الحالي</span>
+                </h3>
+                <table class="table" id="payrollTable">
+                    <thead>
+                        <tr>
+                            <th>اسم الموظف</th>
+                            <th>القسم</th>
+                            <th>الراتب الأساسي</th>
+                            <th>المكافآت</th>
+                            <th>الخصومات</th>
+                            <th>التأمينات الاجتماعية</th>
+                            <th>صافي الراتب</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payrollTableBody">
+                        <!-- سيتم ملء البيانات بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- المزايا الإضافية -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">🏥 إدارة المزايا الإضافية</h3>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="feature-card">
+                            <div class="feature-icon">🏥</div>
+                            <h4>التأمين الصحي</h4>
+                            <p>إدارة بوالص التأمين الصحي للموظفين</p>
+                            <button class="btn btn-primary" onclick="manageHealthInsurance()">إدارة</button>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="feature-card">
+                            <div class="feature-icon">🚗</div>
+                            <h4>بدل المواصلات</h4>
+                            <p>إدارة بدل المواصلات والانتقال</p>
+                            <button class="btn btn-primary" onclick="manageTransportation()">إدارة</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="feature-card">
+                            <div class="feature-icon">🍽️</div>
+                            <h4>بدل الوجبات</h4>
+                            <p>إدارة بدل الوجبات والطعام</p>
+                            <button class="btn btn-primary" onclick="manageMeals()">إدارة</button>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="feature-card">
+                            <div class="feature-icon">🏖️</div>
+                            <h4>الإجازات مدفوعة الأجر</h4>
+                            <p>إدارة رصيد الإجازات والأيام المتبقية</p>
+                            <button class="btn btn-primary" onclick="manageVacations()">إدارة</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- سجل المعاملات المالية -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">💳 سجل المعاملات المالية</h3>
+                </div>
+                <div class="table-container">
+                    <table class="table" id="transactionsTable">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>الموظف</th>
+                                <th>النوع</th>
+                                <th>المبلغ</th>
+                                <th>السبب</th>
+                                <th>الحالة</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <!-- سيتم ملء البيانات بواسطة JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 نظام إدارة الموارد البشرية. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/payroll.js"></script>
+</body>
+</html>
